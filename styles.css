@@ -1,49 +1,128 @@
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(#ffb6c1, #ffe4e1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+body{
+  margin:0;
   font-family: Arial, sans-serif;
-  overflow: hidden;
+  background: linear-gradient(#fbe4e6,#fff);
+  overflow:hidden;
 }
 
-h1 {
-  color: #b30059;
+/* Pantalla inicial */
+.start-screen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-button {
-  padding: 12px 25px;
-  font-size: 18px;
-  border: none;
-  border-radius: 25px;
-  background: #ff4d88;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 20px;
+.start-screen button{
+  padding:20px 30px;
+  font-size:20px;
+  border:none;
+  border-radius:30px;
+  background:#ff7aa2;
+  color:white;
+  cursor:pointer;
+  animation:pulse 1.5s infinite;
 }
 
-#arbol {
-  position: relative;
-  width: 300px;
-  height: 400px;
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
 }
 
-.corazon {
-  position: absolute;
-  font-size: 24px;
-  animation: caer 1s ease-out forwards;
+/* Contenido */
+.container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:20px;
 }
 
-@keyframes caer {
-  from {
-    transform: translateY(-200px) scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
+.hidden{
+  display:none;
+}
+
+.text{
+  max-width:350px;
+  color:#555;
+}
+
+.timer{
+  margin-top:20px;
+  font-weight:bold;
+}
+
+/* Animación de entrada */
+.fade{
+  opacity:0;
+  transform:translateY(20px);
+  transition:1s;
+}
+
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Árbol */
+.tree{
+  margin-top:30px;
+  position:relative;
+  width:220px;
+  height:280px;
+}
+
+.hearts{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:200px;
+  height:200px;
+  transform:translateX(-50%);
+  border-radius:50%;
+}
+
+.hearts span{
+  width:18px;
+  height:18px;
+  position:absolute;
+  clip-path:polygon(
+    50% 90%,0% 40%,25% 0%,
+    50% 25%,75% 0%,100% 40%
+  );
+}
+
+.trunk{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  width:22px;
+  height:90px;
+  background:#1a8148;
+  transform:translateX(-50%);
+  border-radius:5px;
+}
+
+/* Corazones cayendo */
+.falling-hearts span{
+  position:absolute;
+  top:-20px;
+  width:14px;
+  height:14px;
+  background:pink;
+  clip-path:polygon(
+    50% 90%,0% 40%,25% 0%,
+    50% 25%,75% 0%,100% 40%
+  );
+  animation:fall linear infinite;
+  opacity:.8;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(100vh) rotate(360deg);
+    opacity:0;
   }
 }
