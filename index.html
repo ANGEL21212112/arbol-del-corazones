@@ -2,17 +2,49 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Para Ti ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Ti 💜</title>
+
+  <!-- Conexión con CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-  <h1>Presiona el botón 💖</h1>
+  <!-- Pantalla inicial -->
+  <div id="startScreen" class="start-screen">
+    <button id="startBtn">Presiona aquí 💜</button>
+  </div>
 
-  <button id="btn">Armar árbol</button>
+  <!-- Contenido del regalo -->
+  <div id="content" class="container hidden">
 
-  <div id="arbol"></div>
+    <div class="text fade">
+      <h3>Para el amor de mi vida:</h3>
+      <p>
+        Si pudiera elegir un lugar seguro, sería a tu lado,<br>
+        Cuanto más tiempo estoy contigo más te amo,<br>
+        Este regalo es para ti, y muestra un poco 
+        de lo mucho que te amo 💜
+      </p>
+    </div>
 
+    <div class="timer fade">
+      <p>Mi amor por ti comenzó hace...</p>
+      <span id="time"></span>
+    </div>
+
+    <div class="tree fade">
+      <div class="hearts"></div>
+      <div class="trunk"></div>
+    </div>
+
+  </div>
+
+  <!-- Corazones cayendo -->
+  <div class="falling-hearts"></div>
+
+  <!-- Conexión con JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
