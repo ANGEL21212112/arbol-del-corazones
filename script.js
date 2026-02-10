@@ -1,49 +1,80 @@
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(#ffb6c1, #ffe4e1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-}
+const startBtn = document.getElementById("startBtn");
+const startScreen = document.getElementById("startScreen");
+const content = document.getElementById("content");
+const fades = document.querySelectorAll(".fade");
+const falling = document.querySelector(".falling-hearts");
 
-h1 {
-  color: #b30059;
-}
+// 🔴 CAMBIA ESTA FECHA
+const startDate = new Date("2023-09-16T00:00:00");
 
-button {
-  padding: 12px 25px;
-  font-size: 18px;
-  border: none;
-  border-radius: 25px;
-  background: #ff4d88;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
+startBtn.addEventListener("click", () => {
+  startScreen.style.display = "none";
+  content.classList.remove("hidden");
 
-#arbol {
-  position: relative;
-  width: 300px;
-  height: 400px;
-}
+  fades.forEach((el, i) => {
+    setTimeout(() => el.classList.add("show"), i * 600);
+  });
 
-.corazon {
-  position: absolute;
-  font-size: 24px;
-  animation: caer 1s ease-out forwards;
-}
+  buildTree();
+  startTimer();
+  setInterval(createFallingHeart, 300);
+});
 
-@keyframes caer {
-  from {
-    transform: translateY(-200px) scale(0);
-    opacity: 0;
+/* Árbol redondeado */
+function buildTree(){
+  const container = document.querySelector(".hearts");
+  container.innerHTML = "";
+
+  const total = 375;
+  const radius = 110;
+
+  for(let i = 0; i < total; i++){
+    setTimeout(() => {
+      const angle = (i / total) * Math.PI * 2;
+      const r = radius * Math.sqrt(Math.random());
+
+      const x = r * Math.cos(angle);
+      const y = r * Math.sin(angle);
+
+      const heart = document.createElement("span");
+      heart.style.left = (110 + x) + "px";
+      heart.style.top  = (110 + y) + "px";
+
+      heart.style.background =
+        `hsl(${Math.random()*360},80%,80%)`;
+
+      container.appendChild(heart);
+    }, i * 30);
   }
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
+}
+
+
+/* Reloj */
+function startTimer(){
+  function update(){
+    const now = new Date();
+    const diff = now - startDate;
+
+    const s = Math.floor(diff/1000)%60;
+    const m = Math.floor(diff/60000)%60;
+    const h = Math.floor(diff/3600000)%24;
+    const d = Math.floor(diff/86400000);
+
+    document.getElementById("time").textContent =
+      `${d} días ${h} horas ${m} minutos ${s} segundos`;
   }
+  update();
+  setInterval(update, 1000);
+}
+
+/* Corazones cayendo */
+function createFallingHeart(){
+  const heart = document.createElement("span");
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.animationDuration = (4 + Math.random()*4) + "s";
+  heart.style.background =
+    `hsl(${Math.random()*360},80%,75%)`;
+
+  falling.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
 }
